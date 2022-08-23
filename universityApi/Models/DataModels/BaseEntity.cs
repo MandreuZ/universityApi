@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace universityApiBackend.Models.DataModels
+namespace universityApi.Models.DataModels
 
 {
     public class BaseEntity

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using universityApiBackend.Models.DataModels;
+using universityApi.Models.DataModels;
 
-namespace universityApiBackend.DataAccess
+namespace universityApi.DataAccess
 {
     public class UniversityDBContext: DbContext
     {
@@ -16,7 +16,7 @@ namespace universityApiBackend.DataAccess
         public DbSet<Chapter>? Chapters { get; set; }
         public DbSet<Category>? Categories { get; set; }
         public DbSet<Student>? Students { get; set; }
-        public DbSet<universityApiBackend.Models.DataModels.BaseEntity>? BaseEntity { get; set; }
+        public DbSet<BaseEntity>? BaseEntity { get; set; }
         
     }
 }
