@@ -1,4 +1,15 @@
+//1. USINGS para trabajar con EntityFramework
+using Microsoft.EntityFrameworkCore;
+using universityApiBackend.DataAccess;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//2. Conexion con la BBDD
+const string ConectionName = "UniversityDB";
+var conectionString = builder.Configuration.GetConnectionString(ConectionName);
+
+// 3. Añadir contexto
+builder.Services.AddDbContext<UniversityDBContext>(options => options.UseSqlServer(conectionString));
 
 // Add services to the container.
 
