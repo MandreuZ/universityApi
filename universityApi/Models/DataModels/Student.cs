@@ -8,6 +8,6 @@ namespace universityApi.Models.DataModels
         public String LastName { get; set; } = String.Empty;
         public DateTime DateOfBirth { get; set; }
         public ICollection<Course> Courses { get; set; } = new List<Course>();
-
+        
     }
 }

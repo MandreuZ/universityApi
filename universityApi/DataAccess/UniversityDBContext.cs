@@ -16,7 +16,6 @@ namespace universityApi.DataAccess
         public DbSet<Chapter>? Chapters { get; set; }
         public DbSet<Category>? Categories { get; set; }
         public DbSet<Student>? Students { get; set; }
-        public DbSet<BaseEntity>? BaseEntity { get; set; }
         
     }
 }

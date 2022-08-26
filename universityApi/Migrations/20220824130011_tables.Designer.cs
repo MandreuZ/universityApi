@@ -12,8 +12,8 @@ using universityApi.DataAccess;
 namespace universityApi.Migrations
 {
     [DbContext(typeof(UniversityDBContext))]
-    [Migration("20220823073707_First migratin")]
-    partial class Firstmigratin
+    [Migration("20220824130011_tables")]
+    partial class tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,7 +54,7 @@ namespace universityApi.Migrations
                     b.ToTable("CourseStudent");
                 });
 
-            modelBuilder.Entity("universityApi.Models.DataModels.BaseEntity", b =>
+            modelBuilder.Entity("universityApi.Models.DataModels.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,12 +76,12 @@ namespace universityApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -90,55 +90,86 @@ namespace universityApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("BaseEntity");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("BaseEntity");
-                });
-
-            modelBuilder.Entity("universityApi.Models.DataModels.Category", b =>
-                {
-                    b.HasBaseType("universityApi.Models.DataModels.BaseEntity");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("universityApi.Models.DataModels.Chapter", b =>
                 {
-                    b.HasBaseType("universityApi.Models.DataModels.BaseEntity");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("List")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("CourseId")
-                        .IsUnique()
-                        .HasFilter("[CourseId] IS NOT NULL");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
-                    b.HasDiscriminator().HasValue("Chapter");
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId")
+                        .IsUnique();
+
+                    b.ToTable("Chapters");
                 });
 
             modelBuilder.Entity("universityApi.Models.DataModels.Course", b =>
                 {
-                    b.HasBaseType("universityApi.Models.DataModels.BaseEntity");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Level")
                         .HasColumnType("int");
@@ -146,23 +177,52 @@ namespace universityApi.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("Course_Name");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ShortDescription")
                         .IsRequired()
                         .HasMaxLength(280)
                         .HasColumnType("nvarchar(280)");
 
-                    b.HasDiscriminator().HasValue("Course");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("universityApi.Models.DataModels.Student", b =>
                 {
-                    b.HasBaseType("universityApi.Models.DataModels.BaseEntity");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -170,37 +230,78 @@ namespace universityApi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Student_Name");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("Student");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("universityApi.Models.DataModels.User", b =>
                 {
-                    b.HasBaseType("universityApi.Models.DataModels.BaseEntity");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("User_LastName");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("User_Name");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("User");
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CategoryCourse", b =>
@@ -233,17 +334,6 @@ namespace universityApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("universityApi.Models.DataModels.BaseEntity", b =>
-                {
-                    b.HasOne("universityApi.Models.DataModels.User", "User")
-                        .WithOne("BaseEntity")
-                        .HasForeignKey("universityApi.Models.DataModels.BaseEntity", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("universityApi.Models.DataModels.Chapter", b =>
                 {
                     b.HasOne("universityApi.Models.DataModels.Course", "Course")
@@ -255,15 +345,20 @@ namespace universityApi.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("universityApi.Models.DataModels.User", b =>
+                {
+                    b.HasOne("universityApi.Models.DataModels.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("universityApi.Models.DataModels.Course", b =>
                 {
                     b.Navigation("Chapter")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("universityApi.Models.DataModels.User", b =>
-                {
-                    b.Navigation("BaseEntity")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

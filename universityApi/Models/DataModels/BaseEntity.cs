@@ -7,7 +7,6 @@ namespace universityApi.Models.DataModels
         [Required]
         [Key]
         public int Id { get; set; }
-        public int UserId { get; set; }
         public string CreatedBy { get; set; } = string.Empty;   
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string UpdatedBy { get; set; } = string.Empty;
@@ -15,7 +14,6 @@ namespace universityApi.Models.DataModels
         public string DeletedBy { get; set; } = string.Empty;
         public DateTime? DeletedAt { get; set; }
         public bool IsDeleted { get; set; } = false;
-        [Required]
-        public User User { get; set; } = new User();
+
     }
 }
